@@ -1,0 +1,18 @@
+package com.learn.eduservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+/**
+ * 启动类
+ * @author dlq
+ * @since 2020-06-13
+ */
+@ComponentScan(value = {"com.learn"})
+@SpringBootApplication
+public class EduApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EduApplication.class,args);
+    }
+}
