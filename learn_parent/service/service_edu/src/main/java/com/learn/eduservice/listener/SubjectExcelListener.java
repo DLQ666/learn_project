@@ -39,7 +39,7 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
     @Override
     public void invoke(SubjectData subjectData, AnalysisContext analysisContext) {
         if (subjectData==null){
-            //throw new CustomException(20001,"文件数据为空");
+            throw new CustomException(20001,"文件数据为空");
         }
         //一行一行读取，每次读取有两个值，第一个值一级分类，第二个值二级分类
         //添加一级分类

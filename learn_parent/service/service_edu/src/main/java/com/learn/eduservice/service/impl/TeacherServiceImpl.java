@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
 
     @Override
-    public Page<Teacher> selectpage(Page<Teacher> teacherPage, TeacherQuery teacherQuery) {
+    public Page<Teacher> selectPage(Page<Teacher> teacherPage, TeacherQuery teacherQuery) {
         //显示分页查询列表
         //构建条件
         QueryWrapper<Teacher> wrapper =new QueryWrapper<>();

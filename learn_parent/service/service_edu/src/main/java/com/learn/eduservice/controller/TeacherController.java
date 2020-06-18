@@ -1,8 +1,6 @@
 package com.learn.eduservice.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.eduservice.entity.Teacher;
 import com.learn.eduservice.entity.query.TeacherQuery;
@@ -12,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -55,7 +52,7 @@ public class TeacherController {
                 return ResponseResult.error().message("数据不存在");
             }
         }
-        return ResponseResult.error();
+        return ResponseResult.error().message("数据不存在");
     }
 
     @ApiOperation(value = "分页查询讲师列表")
@@ -90,7 +87,7 @@ public class TeacherController {
         Page<Teacher> teacherPage = new Page<>(page, size);
         //调用方法实现分页
         //调用方法的时候，底层封装。把分页所有数据封装到teacherPage对象里面
-        Page<Teacher> pageModel = teacherService.selectpage(teacherPage, teacherQuery);
+        Page<Teacher> pageModel = teacherService.selectPage(teacherPage, teacherQuery);
         //总记录数
         long total = pageModel.getTotal();
         //数据list集合
@@ -98,7 +95,6 @@ public class TeacherController {
         Map map=new HashMap();
         map.put("total",total);
         map.put("rows",rows);
-
         return ResponseResult.ok().data(map);
     }
 
@@ -113,25 +109,25 @@ public class TeacherController {
         }
     }
 
-    @ApiOperation(value = "根据讲师id进行查询")
+    @ApiOperation(value = "根据讲师id查询信息")
     @GetMapping("/getTeacher/{id}")
     public ResponseResult getTeacher(@PathVariable("id") String id){
         Teacher teacher = teacherService.getById(id);
-        return ResponseResult.ok().data("teacher",teacher);
+        if (teacher !=null){
+            return ResponseResult.ok().data("teacher",teacher);
+        }else {
+            return ResponseResult.error().message("数据不存在");
+        }
     }
 
     @ApiOperation(value = "根据讲师id进行修改")
-    @PostMapping("/updateTeacher")
+    @PutMapping("/updateTeacher")
     public ResponseResult updateTeacher(@RequestBody Teacher teacher){
-        ResponseResult result = this.getTeacher(teacher.getId());
-        if (result==null){
-            return ResponseResult.error();
-        }
         boolean flag = teacherService.updateById(teacher);
         if (flag){
             return ResponseResult.ok().message("修改成功");
         }else {
-            return ResponseResult.error().message("修改失败");
+            return ResponseResult.error().message("数据不存在");
         }
     }
 }

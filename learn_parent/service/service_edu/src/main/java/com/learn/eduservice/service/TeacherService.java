@@ -16,5 +16,5 @@ import com.learn.eduservice.entity.query.TeacherQuery;
  */
 public interface TeacherService extends IService<Teacher> {
 
-    Page<Teacher> selectpage(Page<Teacher> teacherPage, TeacherQuery teacherQuery);
+    Page<Teacher> selectPage(Page<Teacher> teacherPage, TeacherQuery teacherQuery);
 }
