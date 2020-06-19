@@ -17,12 +17,12 @@ public class CommonMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("gmtCreate", new Date(), metaObject);
-        this.setFieldValByName("gmtModified", new Date(), metaObject);
+        this.strictInsertFill(metaObject,"gmtCreate",Date.class,new Date());
+        this.strictInsertFill(metaObject,"gmtModified",Date.class,new Date());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("gmtModified", new Date(), metaObject);
+        this.strictUpdateFill(metaObject,"gmtModified",Date.class,new Date());
     }
 }

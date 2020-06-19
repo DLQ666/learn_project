@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     /**
-     * login
+     * 登录
      */
     @PostMapping("/login")
     public ResponseResult login(){
@@ -24,10 +24,18 @@ public class LoginController {
     }
 
     /**
-     * info
+     * 获取用户信息
      */
     @GetMapping("/info")
     public ResponseResult info(){
         return ResponseResult.ok().data("roles","[admin]").data("name","admin").data("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+    }
+
+    /**
+     *
+     */
+    @PostMapping("/logout")
+    public ResponseResult logout(){
+        return ResponseResult.ok();
     }
 }

@@ -22,7 +22,8 @@ import java.util.Map;
  * </p>
  *
  * @author dlq
- * @since 2020-06-18
+ * @since 2020-06-18\
+ * @CrossOrigin: 允许跨域
  */
 @CrossOrigin
 @Api(description = "讲师管理")
