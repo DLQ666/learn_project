@@ -6,7 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.learn.eduservice.entity.Subject;
 import com.learn.eduservice.entity.excel.SubjectData;
 import com.learn.eduservice.service.SubjectService;
-import com.learn.service.base.exceptionhandler.CustomException;
+import com.learn.service.base.exception.CustomException;
+import com.learn.utils.result.ResultCodeEnum;
 
 /**
  * @program: learn_parent
@@ -39,7 +40,7 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
     @Override
     public void invoke(SubjectData subjectData, AnalysisContext analysisContext) {
         if (subjectData==null){
-            throw new CustomException(20001,"文件数据为空");
+            throw new CustomException(ResultCodeEnum.EXCEL_DATA_ISNULL);
         }
         //一行一行读取，每次读取有两个值，第一个值一级分类，第二个值二级分类
         //添加一级分类

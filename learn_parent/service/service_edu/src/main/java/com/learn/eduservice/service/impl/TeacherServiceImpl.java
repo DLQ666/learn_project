@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 讲师 服务实现类
@@ -21,6 +24,11 @@ import org.springframework.util.StringUtils;
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
 
+    /**
+     * @param teacherPage 把分页所有数据封装到teacherPage对象里面 然后传进来
+     * @param teacherQuery 查询条件
+     * @return 查询列表
+     */
     @Override
     public Page<Teacher> selectPage(Page<Teacher> teacherPage, TeacherQuery teacherQuery) {
         //显示分页查询列表
@@ -39,9 +47,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         //判断条件值是否为空,如果不为空拼接条件
         if (!StringUtils.isEmpty(name)){
             //构建条件
-            wrapper.like("name",name);
+            wrapper.likeRight("name",name);
         }
-        if (!StringUtils.isEmpty(level)){
+        if (level != null){
             wrapper.eq("level",level);
         }
         if (!StringUtils.isEmpty(joinDateBegin)){
@@ -53,5 +61,19 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         //排序
         wrapper.orderByAsc("sort");
         return baseMapper.selectPage(teacherPage,wrapper);
+    }
+
+    /**
+     * 根据关键字查询讲师名列表
+     * @param key 关键字
+     * @return 查询的列表
+     */
+    @Override
+    public List<Map<String, Object>> selectNameList(String key) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("name");
+        queryWrapper.likeRight("name",key);
+        List<Map<String, Object>> list = baseMapper.selectMaps(queryWrapper);
+        return list;
     }
 }

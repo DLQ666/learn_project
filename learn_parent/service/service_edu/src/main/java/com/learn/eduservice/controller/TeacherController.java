@@ -44,16 +44,12 @@ public class TeacherController {
     @ApiOperation(value = "根据ID删除讲师")
     @DeleteMapping("/{id}")
     public ResponseResult delTeacher(@ApiParam(name = "id", value = "讲师ID", required = true) @PathVariable("id") String id) {
-        Teacher findById = teacherService.getById(id);
-        if (findById != null) {
             boolean flag = teacherService.removeById(id);
             if (flag) {
                 return ResponseResult.ok().message("删除成功");
             } else {
                 return ResponseResult.error().message("数据不存在");
             }
-        }
-        return ResponseResult.error().message("数据不存在");
     }
 
     @ApiOperation(value = "分页查询讲师列表")
@@ -82,8 +78,8 @@ public class TeacherController {
     }
 
     @ApiOperation(value = "分页条件查询讲师列表")
-    @PostMapping("/queryPageTeacherList/{page}/{size}")
-    public ResponseResult queryPageList(@PathVariable("page") long page, @PathVariable("size") long size,@RequestBody(required = false) TeacherQuery teacherQuery){
+    @GetMapping("/queryPageTeacherList/{page}/{size}")
+    public ResponseResult queryPageList(@PathVariable("page") long page, @PathVariable("size") long size,TeacherQuery teacherQuery){
         //创建page对象
         Page<Teacher> teacherPage = new Page<>(page, size);
         //调用方法实现分页
@@ -130,6 +126,24 @@ public class TeacherController {
         }else {
             return ResponseResult.error().message("数据不存在");
         }
+    }
+
+    @ApiOperation(value = "根据ID列表删除讲师")
+    @DeleteMapping("/batchdel")
+    public ResponseResult batchdelTeacher(@ApiParam(name = "id", value = "讲师ID列表", required = true) @RequestBody List<String> idList) {
+            boolean flag = teacherService.removeByIds(idList);
+            if (flag) {
+                return ResponseResult.ok().message("删除成功");
+            } else {
+                return ResponseResult.error().message("数据不存在");
+            }
+    }
+
+    @ApiOperation(value = "根据关键字查询讲师名列表")
+    @GetMapping("/findAll/name/{key}")
+    public ResponseResult selectNameListByKey(@ApiParam(value = "关键字", required = true) @PathVariable("key") String key) {
+        List<Map<String,Object>> nameList = teacherService.selectNameList(key);
+        return ResponseResult.ok().data("nameList", nameList);
     }
 }
 

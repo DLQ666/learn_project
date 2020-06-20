@@ -1,13 +1,19 @@
 package com.learn.oss.controller;
 
 import com.learn.oss.service.OssService;
+import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
+import com.learn.utils.result.ResultCodeEnum;
+import com.learn.utils.utils.ExceptionUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @program: learn_parent
@@ -17,25 +23,42 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @CrossOrigin: 解决跨域问题加这个注解
  */
+@Api(description = "阿里云文件管理")
 @CrossOrigin
 @RestController
 @RequestMapping("/eduoss/fileoss")
+@Slf4j
 public class OssController {
 
     @Autowired
     private OssService ossService;
 
     /**
-     * 上传头像方法
+     * 上传头像方法--->1
      * @param file
      * @return 返回上传到oss的路径
      */
-    @PostMapping()
+    /*@PostMapping()
     public ResponseResult uploadOssFile(MultipartFile file){
         //获取上传文件 MultipartFile
         //返回上传到oss的路径
         String url=ossService.uploadFileAvater(file);
         return ResponseResult.ok().data("url",url);
+    }*/
+
+    @ApiOperation("文件上传")
+    @PostMapping("/upload")
+    public ResponseResult upload(@RequestParam("file") MultipartFile file,@RequestParam("module") String module) {
+        try {
+            InputStream inputStream = file.getInputStream();
+            String originalFilename = file.getOriginalFilename();
+            String uploadUrl = ossService.upload(inputStream, module, originalFilename);
+            return ResponseResult.ok().message("文件上传成功").data("url",uploadUrl);
+        } catch (Exception e) {
+            log.error(ExceptionUtil.getMessage(e));
+            throw new CustomException(ResultCodeEnum.FILE_UPLOAD_ERROR);
+        }
     }
+
 
 }

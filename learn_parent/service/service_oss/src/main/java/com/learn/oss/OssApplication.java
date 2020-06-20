@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @description: OSS启动类
  * @author: Hasee
  * @create: 2020-06-17 12:26
+ * exclude = DataSourceAutoConfiguration.class ：取消数据源自动配置
  */
 @ComponentScan(basePackages = {"com.learn"})
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)

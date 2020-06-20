@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @program: learn_parent
- * @description: 常量属性读取工具类
+ * @description: 从配置文件读取  常量属性读取工具类--->第一种方法
  * @author: Hasee
  * @create: 2020-06-17 12:35
  * 因为配置属性为私有，外部不能使用。
@@ -34,15 +34,15 @@ public class ConstantPropertiesUtil implements InitializingBean {
      * 定义公开静态常量
      */
     public static String END_POINT;
-    public static String ACCESS_KEY_ID;
-    public static String ACCESS_KEY_SECRET;
+    public static String KEY_ID;
+    public static String KEY_SECRET;
     public static String BUCKET_NAME;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         END_POINT=endpoint;
-        ACCESS_KEY_ID=keyid;
-        ACCESS_KEY_SECRET=keysecret;
+        KEY_ID=keyid;
+        KEY_SECRET=keysecret;
         BUCKET_NAME=bucketname;
     }
 }

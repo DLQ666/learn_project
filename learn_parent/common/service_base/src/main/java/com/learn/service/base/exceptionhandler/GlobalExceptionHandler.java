@@ -1,5 +1,6 @@
 package com.learn.service.base.exceptionhandler;
 
+import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
 import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.ExceptionUtil;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @description: 统一异常处理类
  * @author: Hasee
  * @create: 2020-06-18 21:38
+ * @RestControllerAdvice: 控制器增强 不用写@ResponseBody注解
  */
 @RestControllerAdvice
 @Slf4j
@@ -38,5 +41,12 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         log.error(ExceptionUtil.getMessage(e));
         return ResponseResult.setResult(ResultCodeEnum.JSON_PARSE_ERROR);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseResult error(CustomException e){
+        //e.printStackTrace();
+        log.error(ExceptionUtil.getMessage(e));
+        return ResponseResult.error().message(e.getMessage()).code(e.getCode());
     }
 }

@@ -38,7 +38,8 @@ public class SwaggerConfig {
                 .groupName("adminApi")
                 .apiInfo(adminApiInfo())
                 .select()
-                .paths(Predicates.and(PathSelectors.regex("/eduservice/.*")))
+//                .paths(Predicates.and(PathSelectors.regex("/eduservice/.*")))
+//                .paths(Predicates.and(PathSelectors.regex("/eduoss/.*")))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
 
