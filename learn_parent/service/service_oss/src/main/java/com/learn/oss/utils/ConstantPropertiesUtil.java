@@ -18,16 +18,16 @@ public class ConstantPropertiesUtil implements InitializingBean {
     /**
      * 读取配置文件内容
      */
-    @Value("${aliyun.oss.file.endpoint}")
+    @Value("${aliyun.oss.endpoint}")
     private String endpoint;
 
-    @Value("${aliyun.oss.file.keyid}")
+    @Value("${aliyun.oss.keyid}")
     private String keyid;
 
-    @Value("${aliyun.oss.file.keysecret}")
+    @Value("${aliyun.oss.keysecret}")
     private String keysecret;
 
-    @Value("${aliyun.oss.file.bucketname}")
+    @Value("${aliyun.oss.bucketname}")
     private String bucketname;
 
     /**

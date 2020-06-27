@@ -2,6 +2,8 @@ package com.learn.eduservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -9,6 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author dlq
  * @since 2020-06-13
  */
+@EnableFeignClients
+@EnableDiscoveryClient
 @ComponentScan(value = {"com.learn"})
 @SpringBootApplication
 public class EduApplication {

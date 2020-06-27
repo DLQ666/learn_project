@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ChapterService extends IService<Chapter> {
 
+    /**
+     * 根据章节id删除章节
+     * @param id 章节ID
+     * @return 成功/失败
+     */
+    boolean removeChapterById(String id);
 }

@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.eduservice.entity.Teacher;
 import com.learn.eduservice.entity.query.TeacherQuery;
+import com.learn.eduservice.feign.OssService;
 import com.learn.eduservice.mapper.TeacherMapper;
 import com.learn.eduservice.service.TeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.learn.utils.result.ResponseResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +26,9 @@ import java.util.Map;
  */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
+
+    @Autowired
+    private OssService ossService;
 
     /**
      * @param teacherPage 把分页所有数据封装到teacherPage对象里面 然后传进来
@@ -75,5 +81,24 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         queryWrapper.likeRight("name",key);
         List<Map<String, Object>> list = baseMapper.selectMaps(queryWrapper);
         return list;
+    }
+
+    /**
+     * 根据讲师id删除讲师头像
+     * @param id 讲师id
+     * @return 布尔值 true or false
+     */
+    @Override
+    public boolean removeAvatarById(String id) {
+        //根据id获取讲师avatar的url
+        Teacher teacher = baseMapper.selectById(id);
+        if (teacher !=null){
+            String avatar = teacher.getAvatar();
+            if (!StringUtils.isEmpty(avatar)){
+                ResponseResult result = ossService.removeFile(avatar);
+                return result.getSuccess();
+            }
+        }
+        return false;
     }
 }

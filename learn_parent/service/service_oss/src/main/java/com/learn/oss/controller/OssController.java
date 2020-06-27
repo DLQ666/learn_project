@@ -1,5 +1,6 @@
 package com.learn.oss.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.oss.service.OssService;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: learn_parent
@@ -58,6 +60,21 @@ public class OssController {
             log.error(ExceptionUtil.getMessage(e));
             throw new CustomException(ResultCodeEnum.FILE_UPLOAD_ERROR);
         }
+    }
+
+    @ApiOperation(value = "从oss服务器删除讲师头像")
+    @DeleteMapping("/remove")
+    public ResponseResult removeFile(@RequestBody String url){
+        ossService.removeFile(url);
+        return ResponseResult.ok().message("文件删除成功");
+    }
+
+    @ApiOperation(value = "测试")
+    @GetMapping("/test")
+    public ResponseResult test() {
+        log.info("oss test被调用");
+        try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
+        return ResponseResult.ok();
     }
 
 

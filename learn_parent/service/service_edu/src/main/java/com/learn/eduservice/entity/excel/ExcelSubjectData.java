@@ -10,11 +10,11 @@ import lombok.Data;
  * @create: 2020-06-17 15:53
  */
 @Data
-public class SubjectData {
+public class ExcelSubjectData {
 
-    @ExcelProperty(index = 0)
-    private String oneSubjectName;
+    @ExcelProperty(value = "一级分类",index = 0)
+    private String levelOneTitle;
 
-    @ExcelProperty(index = 1)
-    private String twoSubjectName;
+    @ExcelProperty(value = "二级分类",index = 1)
+    private String levelTwoTitle;
 }

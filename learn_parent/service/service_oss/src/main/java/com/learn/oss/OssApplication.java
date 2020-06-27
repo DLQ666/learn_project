@@ -3,6 +3,7 @@ package com.learn.oss;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @create: 2020-06-17 12:26
  * exclude = DataSourceAutoConfiguration.class ：取消数据源自动配置
  */
+@EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.learn"})
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class OssApplication {

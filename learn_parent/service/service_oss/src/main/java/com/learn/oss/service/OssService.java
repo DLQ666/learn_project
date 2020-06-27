@@ -22,8 +22,14 @@ public interface OssService {
      * 阿里云oos文件上传--->第二种
      * @param inputStream 输入流
      * @param module 文件夹名称
-     * @param originalFileName 原始文件名
+     * @param originalFilename 原始文件名
      * @return 文件在oos服务器上的url地址
      */
     String upload(InputStream inputStream,String module,String originalFilename);
+
+    /**
+     * 阿里云OSS文件删除
+     * @param url 文件的url地址
+     */
+    void removeFile(String url);
 }

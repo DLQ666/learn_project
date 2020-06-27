@@ -96,7 +96,6 @@ public class OssServiceImpl implements OssService {
         String keyid = ossProperties.getKeyid();
         String keysecret = ossProperties.getKeysecret();
         String bucketname = ossProperties.getBucketname();
-
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, keyid, keysecret);
         //首先判断bucket存在不，如果不存在则创建
@@ -121,8 +120,26 @@ public class OssServiceImpl implements OssService {
         // 关闭OSSClient。
         ossClient.shutdown();
 
-        //返回url
-        //https://dlqedu-01.oss-cn-beijing.aliyuncs.com/2020/06/17/46348b9e0caa4e838d0325101a792941file.png
+        //返回url https://dlqedu-01.oss-cn-beijing.aliyuncs.com/2020/06/17/46348b9e0caa4e838d0325101a792941file.png
         return "https://" + bucketname + "." + endpoint + "/" + key;
+    }
+
+    @Override
+    public void removeFile(String url) {
+        //读取配置信息
+        String endpoint = ossProperties.getEndpoint();
+        String keyid = ossProperties.getKeyid();
+        String keysecret = ossProperties.getKeysecret();
+        String bucketname = ossProperties.getBucketname();
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, keyid, keysecret);
+
+        // 删除文件。
+        String host="https://" + bucketname + "." + endpoint + "/";
+        String objectName = url.substring(host.length());
+        ossClient.deleteObject(bucketname, objectName);
+
+        // 关闭OSSClient。
+        ossClient.shutdown();
     }
 }

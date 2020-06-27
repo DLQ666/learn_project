@@ -1,5 +1,7 @@
 package com.learn.eduservice.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.learn.service.base.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -24,6 +26,10 @@ import lombok.experimental.Accessors;
 public class CourseDescription extends BaseEntity {
 
     private static final long serialVersionUID=1L;
+
+    @ApiModelProperty(value = "课程描述ID，覆盖掉公共ID生成策略")
+    @TableId(value = "id", type = IdType.NONE)
+    private String id;
 
     @ApiModelProperty(value = "课程简介")
     private String description;

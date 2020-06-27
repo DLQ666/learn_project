@@ -33,4 +33,11 @@ public interface TeacherService extends IService<Teacher> {
      * @return 根据关键字查询的列表
      */
     List<Map<String, Object>> selectNameList(String key);
+
+    /**
+     * 根据id删除讲师头像
+     * @param id 讲师id
+     * @return 布尔值
+     */
+    boolean removeAvatarById(String id);
 }
