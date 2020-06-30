@@ -3,6 +3,7 @@ package com.learn.eduservice.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Chapter;
+import com.learn.eduservice.entity.vo.ChapterVo;
 import com.learn.eduservice.service.ChapterService;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
@@ -11,6 +12,8 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -80,5 +83,13 @@ public class ChapterController {
             return ResponseResult.error().message("数据不存在");
         }
     }
+
+    @ApiOperation("嵌套章节数据列表")
+    @GetMapping("/nestedList/{courseId}")
+    public ResponseResult nestedListByCourseId( @PathVariable String courseId){
+        List<ChapterVo> chapterVoList = chapterService.nestedList(courseId);
+        return ResponseResult.ok().data("items", chapterVoList);
+    }
+
 }
 

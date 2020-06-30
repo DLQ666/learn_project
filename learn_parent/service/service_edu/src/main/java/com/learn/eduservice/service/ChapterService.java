@@ -2,6 +2,9 @@ package com.learn.eduservice.service;
 
 import com.learn.eduservice.entity.Chapter;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.learn.eduservice.entity.vo.ChapterVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,4 +22,6 @@ public interface ChapterService extends IService<Chapter> {
      * @return 成功/失败
      */
     boolean removeChapterById(String id);
+
+    List<ChapterVo> nestedList(String courseId);
 }
