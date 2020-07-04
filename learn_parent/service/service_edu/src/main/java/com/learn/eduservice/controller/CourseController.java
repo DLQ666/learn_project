@@ -7,6 +7,7 @@ import com.learn.eduservice.entity.query.CourseQuery;
 import com.learn.eduservice.entity.vo.CoursePublishVo;
 import com.learn.eduservice.entity.vo.CourseVo;
 import com.learn.eduservice.service.CourseService;
+import com.learn.eduservice.service.VideoService;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
 import com.learn.utils.result.ResultCodeEnum;
@@ -36,7 +37,9 @@ import java.util.Map;
 public class CourseController {
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
+    @Autowired
+    private VideoService videoService;
 
     @ApiOperation("新增课程")
     @PostMapping("/saveCourseInfo")
@@ -85,8 +88,8 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public ResponseResult delCourse(@ApiParam(name = "id", value = "课程ID", required = true) @PathVariable("id") String id) {
 
-        //TODO：删除课程视频
-        //此处调用vod中删除视频文件的接口
+        //删除课程视频
+        videoService.removeVideoByCourseId(id);
 
         //删除课程封面
         courseService.removeCoverById(id);

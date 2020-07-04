@@ -40,4 +40,17 @@ public interface TeacherService extends IService<Teacher> {
      * @return 布尔值
      */
     boolean removeAvatarById(String id);
+
+    /**
+     * 根据讲师id 获取讲师详情页信息 包括讲师一些基本信息 和 该讲师所讲课程
+     * @param id 讲师id
+     * @return map集合类型的讲师详情页信息
+     */
+    Map<String,Object> selectTeacherInfoById(String id);
+
+    /**
+     * 查询推荐讲师
+     * @return 推荐讲师列表
+     */
+    List<Teacher> selectHotTeacher();
 }

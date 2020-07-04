@@ -9,6 +9,7 @@ import com.learn.eduservice.listener.SubjectExcelListener;
 import com.learn.eduservice.mapper.SubjectMapper;
 import com.learn.eduservice.service.SubjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -35,6 +36,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
         EasyExcel.read(inputStream, ExcelSubjectData.class,new SubjectExcelListener(baseMapper)).excelType(ExcelTypeEnum.XLS).sheet().doRead();
     }
 
+    @Cacheable(value = "index",key = "'subjectList'")
     @Override
     public List<SubjectQuery> subjectList() {
         return baseMapper.selectNestedListByParentId("0");

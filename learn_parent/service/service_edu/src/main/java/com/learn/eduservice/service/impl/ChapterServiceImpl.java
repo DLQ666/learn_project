@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,8 +93,8 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
             ChapterVo chapterVo = new ChapterVo();
             BeanUtils.copyProperties(chapter,chapterVo);
             chapterVoList.add(chapterVo);
-//    外侧for循环         组装chaptervo{
-//    下边内侧for循环        组装VideoVo
+//外侧for循环         组装chaptervo{
+//下边内侧for循环        组装VideoVo
 //                       }
             List<VideoVo> videoVoList = new ArrayList<>();
             for (Video video : videoList) {

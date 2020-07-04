@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @program: learn_parent
@@ -43,6 +44,29 @@ public class VodController {
         } catch (IOException e) {
             log.error(ExceptionUtil.getMessage(e));
             throw new CustomException(ResultCodeEnum.VIDEO_UPLOAD_TOMCAT_ERROR);
+        }
+    }
+
+    @DeleteMapping("/remove/{vodId}")
+    public ResponseResult removeVideo(@PathVariable("vodId") String vodId){
+        try {
+            vodService.removeVideo(vodId);
+            return ResponseResult.ok().message("视频删除成功");
+        } catch (Exception e) {
+            log.error(ExceptionUtil.getMessage(e));
+            throw new CustomException(ResultCodeEnum.VIDEO_DELETE_ALIYUN_ERROR);
+        }
+    }
+
+    @DeleteMapping("/remove")
+    public ResponseResult removeVideoByIdList(@RequestBody List<String> videoIdList){
+
+        try {
+            vodService.removeVideoByIdList(videoIdList);
+            return  ResponseResult.ok().message("视频删除成功");
+        } catch (Exception e) {
+            log.error(ExceptionUtil.getMessage(e));
+            throw new CustomException(ResultCodeEnum.VIDEO_DELETE_ALIYUN_ERROR);
         }
     }
 }

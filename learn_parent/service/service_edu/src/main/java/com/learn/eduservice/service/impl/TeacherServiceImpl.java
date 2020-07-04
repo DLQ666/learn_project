@@ -2,17 +2,21 @@ package com.learn.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.learn.eduservice.entity.Course;
 import com.learn.eduservice.entity.Teacher;
 import com.learn.eduservice.entity.query.TeacherQuery;
 import com.learn.eduservice.feign.OssService;
+import com.learn.eduservice.mapper.CourseMapper;
 import com.learn.eduservice.mapper.TeacherMapper;
 import com.learn.eduservice.service.TeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.utils.result.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +33,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Autowired
     private OssService ossService;
+    @Autowired
+    private CourseMapper courseMapper;
 
     /**
      * @param teacherPage 把分页所有数据封装到teacherPage对象里面 然后传进来
@@ -100,5 +106,28 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
             }
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Object> selectTeacherInfoById(String id) {
+        Teacher teacher = baseMapper.selectById(id);
+        QueryWrapper<Course> courseQueryWrapper = new QueryWrapper<>();
+        courseQueryWrapper.eq("teacher_id",id);
+
+        List<Course> courseList = courseMapper.selectList(courseQueryWrapper);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("teacher",teacher);
+        map.put("courseList",courseList);
+        return map;
+    }
+
+    @Cacheable(value = "index",key = "'selectHotTeacher'")
+    @Override
+    public List<Teacher> selectHotTeacher() {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("sort");
+        queryWrapper.last("limit 4");
+        return baseMapper.selectList(queryWrapper);
     }
 }

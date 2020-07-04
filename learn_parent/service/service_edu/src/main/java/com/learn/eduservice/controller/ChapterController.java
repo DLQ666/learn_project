@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Chapter;
 import com.learn.eduservice.entity.vo.ChapterVo;
 import com.learn.eduservice.service.ChapterService;
+import com.learn.eduservice.service.VideoService;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,9 @@ public class ChapterController {
 
     @Autowired
     private ChapterService chapterService;
+
+    @Autowired
+    private VideoService videoService;
 
     @ApiOperation("新增章节")
     @PostMapping("/save")
@@ -72,8 +76,8 @@ public class ChapterController {
             @ApiParam(value = "章节ID", required = true)
             @PathVariable String id){
 
-        //TODO：删除课程视频
-        //此处调用vod中删除视频文件的接口
+        //删除课程视频
+        videoService.removeVideoByChapterId(id);
 
         //删除章节
         boolean flag = chapterService.removeChapterById(id);

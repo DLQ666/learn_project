@@ -4,6 +4,7 @@ import com.learn.eduservice.feign.OssService;
 import com.learn.utils.result.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @program: learn_parent
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author: Hasee
  * @create: 2020-06-24 14:17
  */
-@Component
+@Service
 @Slf4j
 public class OssServiceFallBack implements OssService {
 

@@ -3,6 +3,7 @@ package com.learn.eduservice.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Video;
+import com.learn.eduservice.feign.VodService;
 import com.learn.eduservice.service.VideoService;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
@@ -67,8 +68,8 @@ public class VideoController {
     @DeleteMapping("/remove/{id}")
     public ResponseResult removeById(@PathVariable String id) {
 
-        //TODO 删除视频：VOD
-        //在此处调用vod中的删除视频文件的接口
+        //删除视频
+        videoService.removeVideoById(id);
 
         boolean result = videoService.removeById(id);
         if (result) {

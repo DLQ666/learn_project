@@ -23,6 +23,10 @@ public interface SubjectService extends IService<Subject> {
      */
     void batchImport(InputStream inputStream);
 
+    /**
+     * 查询课程分类列表
+     * @return 课程分类列表
+     */
     List<SubjectQuery> subjectList();
 
 }

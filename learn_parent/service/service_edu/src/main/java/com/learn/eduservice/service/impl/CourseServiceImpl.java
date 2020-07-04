@@ -7,6 +7,8 @@ import com.learn.eduservice.entity.form.CourseInfoForm;
 import com.learn.eduservice.entity.query.CourseQuery;
 import com.learn.eduservice.entity.vo.CoursePublishVo;
 import com.learn.eduservice.entity.vo.CourseVo;
+import com.learn.eduservice.entity.vo.WebCourseQueryVo;
+import com.learn.eduservice.entity.vo.WebCourseVo;
 import com.learn.eduservice.feign.OssService;
 import com.learn.eduservice.mapper.*;
 import com.learn.eduservice.service.CourseService;
@@ -14,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.utils.result.ResponseResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -50,7 +53,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         //保存Course
         Course course = new Course();
-        BeanUtils.copyProperties(courseInfoForm,course);
+        BeanUtils.copyProperties(courseInfoForm, course);
         course.setStatus(Course.COURSE_DRAFT);
         baseMapper.insert(course);
 
@@ -67,7 +70,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseInfoForm getCourseInfoById(String id) {
         //根据id获取Course
         Course course = baseMapper.selectById(id);
-        if (course == null){
+        if (course == null) {
             return null;
         }
 
@@ -76,7 +79,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         //组装成CourseInfoForm
         CourseInfoForm courseInfoForm = new CourseInfoForm();
-        BeanUtils.copyProperties(course,courseInfoForm);
+        BeanUtils.copyProperties(course, courseInfoForm);
         courseInfoForm.setDescription(courseDescription.getDescription());
 
         return courseInfoForm;
@@ -86,7 +89,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public void updateCourseInfoById(CourseInfoForm courseInfoForm) {
         //更新Course
         Course course = new Course();
-        BeanUtils.copyProperties(courseInfoForm,course);
+        BeanUtils.copyProperties(courseInfoForm, course);
         baseMapper.updateById(course);
 
         //更新CourseDescription
@@ -106,24 +109,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         String teacherId = courseQuery.getTeacherId();
         String subjectParentId = courseQuery.getSubjectParentId();
         String subjectId = courseQuery.getSubjectId();
-        if (!StringUtils.isEmpty(title)){
-            queryWrapper.like("c.title",title);
+        if (!StringUtils.isEmpty(title)) {
+            queryWrapper.like("c.title", title);
         }
-        if (!StringUtils.isEmpty(teacherId)){
-            queryWrapper.eq("c.teacher_id",teacherId);
+        if (!StringUtils.isEmpty(teacherId)) {
+            queryWrapper.eq("c.teacher_id", teacherId);
         }
-        if (!StringUtils.isEmpty(subjectParentId)){
-            queryWrapper.eq("c.subject_parent_id",subjectParentId);
+        if (!StringUtils.isEmpty(subjectParentId)) {
+            queryWrapper.eq("c.subject_parent_id", subjectParentId);
         }
-        if (!StringUtils.isEmpty(subjectId)){
-            queryWrapper.eq("c.subject_id",subjectId);
+        if (!StringUtils.isEmpty(subjectId)) {
+            queryWrapper.eq("c.subject_id", subjectId);
         }
 
         //组装分页
-        Page<CourseVo> pageParam = new Page<>(page,size);
+        Page<CourseVo> pageParam = new Page<>(page, size);
         //执行分页查询
         //只需要在mapper层传入封装好的分页组件即可，sql分页条件组装的过程mp自动完成
-        List<CourseVo> records = baseMapper.selectPageByCourseQuery(pageParam,queryWrapper);
+        List<CourseVo> records = baseMapper.selectPageByCourseQuery(pageParam, queryWrapper);
         //将 records 设置到 pageParam 中
         return pageParam.setRecords(records);
     }
@@ -132,9 +135,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public boolean removeCoverById(String id) {
         //根据id获取讲师 cover 的url
         Course course = baseMapper.selectById(id);
-        if (course !=null){
+        if (course != null) {
             String cover = course.getCover();
-            if (!StringUtils.isEmpty(cover)){
+            if (!StringUtils.isEmpty(cover)) {
                 ResponseResult result = ossService.removeFile(cover);
                 return result.getSuccess();
             }
@@ -144,10 +147,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     /**
      * 数据库中外键约束的设置，
-     *      互联网分布式项目中不允许使用外键与级联更新，一切设计级联的操作不要依赖数据库层，要在业务层解决
-     *
+     * 互联网分布式项目中不允许使用外键与级联更新，一切设计级联的操作不要依赖数据库层，要在业务层解决
+     * <p>
      * 如果业务层解决级联删除功能
-     *    那么先删除字表数据，再删除父表数据
+     * 那么先删除字表数据，再删除父表数据
+     *
      * @param id
      * @return
      */
@@ -157,22 +161,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         //根据courseId删除Video(课时)
         QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
-        videoQueryWrapper.eq("course_id",id);
+        videoQueryWrapper.eq("course_id", id);
         videoMapper.delete(videoQueryWrapper);
 
         //根据courseId删除Chapter(章节)
         QueryWrapper<Chapter> chapterQueryWrapper = new QueryWrapper<>();
-        chapterQueryWrapper.eq("course_id",id);
+        chapterQueryWrapper.eq("course_id", id);
         chapterMapper.delete(chapterQueryWrapper);
 
         //根据courseId删除comment(评论)
         QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
-        commentQueryWrapper.eq("course_id",id);
+        commentQueryWrapper.eq("course_id", id);
         commentMapper.delete(commentQueryWrapper);
 
         //根据courseId删除CourseCollect(课程收藏)
         QueryWrapper<CourseCollect> courseCollectQueryWrapper = new QueryWrapper<>();
-        courseCollectQueryWrapper.eq("course_id",id);
+        courseCollectQueryWrapper.eq("course_id", id);
         courseCollectMapper.delete(courseCollectQueryWrapper);
 
         //根据courseId删除CourseDescription(课程描述)
@@ -197,4 +201,65 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setStatus(Course.COURSE_NORMAL);
         return this.updateById(course);
     }
+
+    @Cacheable(value = "index",key = "'webSelectList'")
+    @Override
+    public List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo) {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+
+        //查询已发布的课程 ，，，没发布的查出来展示？？？
+        queryWrapper.eq("status", Course.COURSE_NORMAL);
+        if (!StringUtils.isEmpty(webCourseQueryVo.getSubjectParentId())) {
+            queryWrapper.eq("subject_parent_id", webCourseQueryVo.getSubjectParentId());
+        }
+
+        if (!StringUtils.isEmpty(webCourseQueryVo.getSubjectId())) {
+            queryWrapper.eq("subject_id", webCourseQueryVo.getSubjectId());
+        }
+
+        if (!StringUtils.isEmpty(webCourseQueryVo.getBuyCountSort())) {
+            queryWrapper.orderByDesc("buy_count");
+        }
+
+        if (!StringUtils.isEmpty(webCourseQueryVo.getGmtCreateSort())) {
+            queryWrapper.orderByDesc("gmt_create");
+        }
+
+        if (!StringUtils.isEmpty(webCourseQueryVo.getPriceSort())) {
+            if (webCourseQueryVo.getType() == null || webCourseQueryVo.getType() == 1) {
+                queryWrapper.orderByAsc("price");
+            } else {
+                queryWrapper.orderByDesc("price");
+            }
+        }
+
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 获取课程信息并更新浏览量
+     *
+     * @param id
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public WebCourseVo selectWebCourseVoById(String id) {
+        Course course = baseMapper.selectById(id);
+        //更新浏览数+1
+        course.setViewCount(course.getViewCount() + 1);
+        baseMapper.updateById(course);
+        //获取课程信息
+        return baseMapper.selectWebCourseVoById(id);
+    }
+
+    @Cacheable(value = "index",key = "'selectHotCourse'")
+    @Override
+    public List<Course> selectHotCourse() {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("view_count");
+        queryWrapper.last("limit 8");
+        return baseMapper.selectList(queryWrapper);
+    }
+
 }
