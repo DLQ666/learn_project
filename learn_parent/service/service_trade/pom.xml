@@ -9,21 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service_ucenter</artifactId>
+    <artifactId>service_trade</artifactId>
 
-    <dependencies>
-        <!-- Bcrypt加密 -->
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
-        <!-- spring session: session同步 同步到redis中 -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->
