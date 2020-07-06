@@ -13,6 +13,7 @@ import com.learn.eduservice.feign.OssService;
 import com.learn.eduservice.mapper.*;
 import com.learn.eduservice.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.learn.service.base.dto.CourseDto;
 import com.learn.utils.result.ResponseResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CommentMapper commentMapper;
     @Autowired
     private CourseCollectMapper courseCollectMapper;
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -260,6 +263,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         queryWrapper.orderByDesc("view_count");
         queryWrapper.last("limit 8");
         return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public CourseDto getCourseDtoById(String courseId) {
+
+        //这种方法分别获取teacher和course数据进行dto组装，此方法执行两条sql语句，查询性能---较弱
+//        Course course = baseMapper.selectById(courseId);
+//        String teacherId = course.getTeacherId();
+//        Teacher teacher = teacherMapper.selectById(teacherId);
+//
+//        CourseDto courseDto = new CourseDto();
+//        courseDto.setId(course.getId());
+//        courseDto.setCover(course.getCover());
+//        courseDto.setPrice(course.getPrice());
+//        courseDto.setTitle(course.getTitle());
+//        courseDto.setTeacherName(teacher.getName());
+//
+//        return courseDto;
+
+        //在xml文件手写sql语句 ----->此方法只执行一条sql语句--->查询性能较强---->强烈推荐手写sql
+        return baseMapper.selectCourseDtoById(courseId);
     }
 
 }

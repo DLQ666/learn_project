@@ -9,6 +9,7 @@ import com.learn.eduservice.entity.vo.CoursePublishVo;
 import com.learn.eduservice.entity.vo.CourseVo;
 import com.learn.eduservice.entity.vo.WebCourseQueryVo;
 import com.learn.eduservice.entity.vo.WebCourseVo;
+import com.learn.service.base.dto.CourseDto;
 
 import java.util.List;
 
@@ -98,4 +99,11 @@ public interface CourseService extends IService<Course> {
      * @return 热门课程列表
      */
     List<Course> selectHotCourse();
+
+    /**
+     * 根据课程id查询课程信息->内部远程调用接口
+     * @param courseId
+     * @return
+     */
+    CourseDto getCourseDtoById(String courseId);
 }

@@ -2,6 +2,7 @@ package com.learn.user.controller.api;
 
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.learn.service.base.dto.MemberDto;
 import com.learn.service.base.exception.CustomException;
 import com.learn.user.entity.vo.LoginVo;
 import com.learn.user.entity.vo.RegisterVo;
@@ -12,6 +13,7 @@ import com.learn.utils.utils.JwtInfo;
 import com.learn.utils.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +63,13 @@ public class ApiMemberController {
             log.error("解析用户信息失败："+e.getMessage());
             throw new CustomException(ResultCodeEnum.FETCH_USERINFO_ERROR);
         }
+    }
+
+    @ApiOperation("根据会员id查询会员信息")
+    @GetMapping("/inner/getMemberDto/{memberId}")
+    public MemberDto getMemberDtoByMemberId(@PathVariable("memberId") String memberId){
+        MemberDto memberDto = memberService.getMemberDtoByMemberId(memberId);
+        return memberDto;
     }
 
 }

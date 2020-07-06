@@ -2,6 +2,7 @@ package com.learn.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.learn.service.base.dto.MemberDto;
 import com.learn.service.base.exception.CustomException;
 import com.learn.user.entity.Member;
 import com.learn.user.entity.vo.LoginVo;
@@ -13,6 +14,7 @@ import com.learn.utils.utils.FormUtils;
 import com.learn.utils.utils.JwtInfo;
 import com.learn.utils.utils.JwtUtils;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -120,5 +122,13 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid",openid);
         return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public MemberDto getMemberDtoByMemberId(String memberId) {
+        Member member = baseMapper.selectById(memberId);
+        MemberDto memberDto = new MemberDto();
+        BeanUtils.copyProperties(member,memberDto);
+        return memberDto;
     }
 }

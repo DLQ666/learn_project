@@ -1,5 +1,6 @@
 package com.learn.user.service;
 
+import com.learn.service.base.dto.MemberDto;
 import com.learn.user.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.learn.user.entity.vo.LoginVo;
@@ -34,4 +35,11 @@ public interface MemberService extends IService<Member> {
      * @return 微信用户
      */
     Member getByOpenId(String openid);
+
+    /**
+     * 根据id查询会员信息--->n内部远程调用接口
+     * @param memberId 会员id
+     * @return 会员实体
+     */
+    MemberDto getMemberDtoByMemberId(String memberId);
 }
