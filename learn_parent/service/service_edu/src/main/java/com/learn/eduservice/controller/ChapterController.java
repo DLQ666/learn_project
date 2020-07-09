@@ -1,7 +1,6 @@
 package com.learn.eduservice.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Chapter;
 import com.learn.eduservice.entity.vo.ChapterVo;
 import com.learn.eduservice.service.ChapterService;
@@ -25,7 +24,6 @@ import java.util.List;
  * @since 2020-06-18
  */
 @Slf4j
-@CrossOrigin
 @Api(description = "章节管理")
 @RestController
 @RequestMapping("/eduservice/chapter")

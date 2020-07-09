@@ -1,7 +1,6 @@
 package com.learn.cms.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.cms.entity.Ad;
 import com.learn.cms.entity.vo.AdVo;
 import com.learn.cms.service.AdService;
@@ -26,7 +25,6 @@ import java.util.List;
 
 @Api(description = "广告推荐管理")
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/admin/cms/ad")
 public class AdController {

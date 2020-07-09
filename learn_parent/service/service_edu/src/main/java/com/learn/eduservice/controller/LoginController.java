@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
  * @create: 2020-06-15 21:16
  * @CrossOrigin: 解决跨域
  */
-@CrossOrigin
 @RestController
 @RequestMapping("/eduservice/user")
 public class LoginController {

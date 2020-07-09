@@ -2,9 +2,9 @@ package com.learn.trade.feign;
 
 import com.learn.service.base.dto.CourseDto;
 import com.learn.trade.feign.fallback.EduCourseServiceFallback;
+import com.learn.utils.result.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -19,4 +19,7 @@ public interface EduCourseService {
 
     @GetMapping("/api/edu/course/inner/getCourseDto/{courseId}")
     public CourseDto getCourseDtoById(@PathVariable("courseId") String courseId);
+
+    @GetMapping("/api/edu/course/inner/update-buy-count/{id}")
+    public ResponseResult updateBuyCountById(@PathVariable("id") String id);
 }

@@ -1,10 +1,8 @@
 package com.learn.sms.controller.api;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.learn.service.base.exception.CustomException;
 import com.learn.sms.service.SmsService;
 import com.learn.utils.result.ResponseResult;
-import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.FormUtils;
 import com.learn.utils.utils.RandomUtils;
 import io.swagger.annotations.Api;
@@ -12,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Api(description = "短信管理")
 @Slf4j
-@CrossOrigin //跨域
 @RestController
 @RequestMapping("/api/sms")
 public class ApiSmsController {
@@ -46,7 +46,7 @@ public class ApiSmsController {
         String checkCode = RandomUtils.getFourBitRandom();
 
         //发送验证码
-        //smsService.send(mobile,checkCode);
+//        smsService.send(mobile,checkCode);
 
         //存储验证码到redis
         redisTemplate.opsForValue().set(mobile,checkCode,5, TimeUnit.MINUTES);

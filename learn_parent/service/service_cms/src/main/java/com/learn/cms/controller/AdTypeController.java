@@ -1,7 +1,6 @@
 package com.learn.cms.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.cms.entity.AdType;
 import com.learn.cms.service.AdTypeService;
@@ -28,7 +27,6 @@ import java.util.List;
 
 @Api(description = "推荐位管理")
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/admin/cms/ad-type")
 public class AdTypeController {

@@ -1,7 +1,6 @@
 package com.learn.eduservice.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.learn.eduservice.entity.Teacher;
 import com.learn.eduservice.entity.query.TeacherQuery;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +28,6 @@ import java.util.Map;
  * @since 2020-06-18\
  */
 @Slf4j
-@CrossOrigin
 @Api(description = "讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")

@@ -1,7 +1,6 @@
 package com.learn.user.controller.api;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.service.base.dto.MemberDto;
 import com.learn.service.base.exception.CustomException;
 import com.learn.user.entity.vo.LoginVo;
@@ -13,7 +12,6 @@ import com.learn.utils.utils.JwtInfo;
 import com.learn.utils.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Api(description = "会员管理")
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/api/ucenter/member")
 public class ApiMemberController {
@@ -71,6 +68,8 @@ public class ApiMemberController {
         MemberDto memberDto = memberService.getMemberDtoByMemberId(memberId);
         return memberDto;
     }
+
+
 
 }
 

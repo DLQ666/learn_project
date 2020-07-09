@@ -1,14 +1,11 @@
 package com.learn.eduservice.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Video;
-import com.learn.eduservice.feign.VodService;
 import com.learn.eduservice.service.VideoService;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020-06-18
  */
 @Slf4j
-@CrossOrigin
 @Api(description = "课时管理")
 @RestController
 @RequestMapping("/eduservice/video")

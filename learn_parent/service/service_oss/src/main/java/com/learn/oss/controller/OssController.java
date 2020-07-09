@@ -1,6 +1,5 @@
 package com.learn.oss.controller;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.oss.service.OssService;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +24,6 @@ import java.util.concurrent.TimeUnit;
  * @CrossOrigin: 解决跨域问题加这个注解
  */
 @Api(description = "阿里云文件管理")
-@CrossOrigin
 @RestController
 @RequestMapping("/eduoss/fileoss")
 @Slf4j

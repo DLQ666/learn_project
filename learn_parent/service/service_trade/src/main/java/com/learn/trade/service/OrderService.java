@@ -4,6 +4,7 @@ import com.learn.trade.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,4 +54,25 @@ public interface OrderService extends IService<Order> {
      * @return 布尔
      */
     boolean removeById(String orderId, String memberId);
+
+    /**
+     * 根据订单号查询订单
+     * @param orderNo 订单号
+     * @return 订单信息
+     */
+    Order getOrderByOrderNo(String orderNo);
+
+    /**
+     * 回调接口中收到微信发来的支付成功通知，更改订单表的支付状态
+     * @param notifyMap
+     */
+    void updateOrderStatus(Map<String, String> notifyMap);
+
+    /**
+     * 查询订单状态---轮询（每3秒查询一次）
+     * @param orderNo 订单号
+     * @return 布尔
+     */
+    boolean queryPayStatus(String orderNo);
+
 }

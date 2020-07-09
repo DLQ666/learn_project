@@ -1,16 +1,17 @@
 package com.learn.vod.controller.api;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
 import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.ExceptionUtil;
 import com.learn.vod.service.VodService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: learn_parent
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(description="阿里云视频点播")
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/api/vod/media")
 public class ApiVideoController {

@@ -12,6 +12,14 @@
     <artifactId>service_trade</artifactId>
 
 
+    <!--<dependencies>
+        &lt;!&ndash;微信支付&ndash;&gt;
+        <dependency>
+            <groupId>com.github.wxpay</groupId>
+            <artifactId>wxpay-sdk</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+    </dependencies>-->
     <build>
         <!-- 项目打包时会将java目录中的*.xml文件也进行打包 -->
         <resources>

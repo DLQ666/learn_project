@@ -1,10 +1,9 @@
 package com.learn.trade.controller.api;
 
-
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.trade.entity.Order;
 import com.learn.trade.service.OrderService;
 import com.learn.utils.result.ResponseResult;
+import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.JwtInfo;
 import com.learn.utils.utils.JwtUtils;
 import io.swagger.annotations.Api;
@@ -28,7 +27,6 @@ import java.util.List;
 
 @Api(description = "网站订单管理")
 @Slf4j
-@CrossOrigin //跨域
 @RestController
 @RequestMapping("/api/trade/order")
 public class ApiOrderController {
@@ -70,7 +68,7 @@ public class ApiOrderController {
     }
 
     @ApiOperation(value = "删除订单")
-    @DeleteMapping("auth/remove/{orderId}")
+    @DeleteMapping("/auth/remove/{orderId}")
     public ResponseResult remove(@PathVariable("orderId") String orderId, HttpServletRequest request) {
         JwtInfo jwtInfo = JwtUtils.getMemberIdByJwtToken(request);
         boolean result = orderService.removeById(orderId,jwtInfo.getId());
@@ -79,6 +77,15 @@ public class ApiOrderController {
         }else {
             return ResponseResult.error().message("数据不存在");
         }
+    }
+
+    @GetMapping("/query-pay-status/{orderNo}")
+    public ResponseResult queryPayStatus(@PathVariable String orderNo) {
+        boolean result = orderService.queryPayStatus(orderNo);
+        if (result) {//支付成功
+            return ResponseResult.ok().message("支付成功");
+        }
+        return ResponseResult.setResult(ResultCodeEnum.PAY_RUN);//支付中
     }
 }
 

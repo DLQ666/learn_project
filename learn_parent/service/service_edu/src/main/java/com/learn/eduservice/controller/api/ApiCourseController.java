@@ -10,7 +10,6 @@ import com.learn.service.base.dto.CourseDto;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,6 @@ import java.util.List;
  */
 @Api(description = "课程")
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/api/edu/course")
 public class ApiCourseController {
@@ -57,5 +55,12 @@ public class ApiCourseController {
     public CourseDto getCourseDtoById(@PathVariable("courseId") String courseId) {
         CourseDto courseDto = courseService.getCourseDtoById(courseId);
         return courseDto;
+    }
+
+    @ApiOperation("根据课程id更改销售量")
+    @GetMapping("/inner/update-buy-count/{id}")
+    public ResponseResult updateBuyCountById(@PathVariable("id") String id){
+        courseService.updateBuyCountById(id);
+        return ResponseResult.ok();
     }
 }

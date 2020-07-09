@@ -1,12 +1,10 @@
 package com.learn.eduservice.controller.api;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.eduservice.entity.Teacher;
 import com.learn.eduservice.service.TeacherService;
 import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,6 @@ import java.util.Map;
  * @author: Hasee
  * @create: 2020-07-01 19:55
  */
-@CrossOrigin
 @Api(description="讲师")
 @RestController
 @RequestMapping("/api/edu/teacher")

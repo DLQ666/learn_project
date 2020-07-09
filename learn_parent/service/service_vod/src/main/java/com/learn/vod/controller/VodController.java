@@ -1,13 +1,11 @@
 package com.learn.vod.controller;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
 import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.ExceptionUtil;
 import com.learn.vod.service.VodService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,6 @@ import java.util.List;
  */
 @Api(description="阿里云视频点播")
 @Slf4j
-@CrossOrigin //跨域
 @RestController
 @RequestMapping("/eduVod/video")
 public class VodController {

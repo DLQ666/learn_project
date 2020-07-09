@@ -1,7 +1,7 @@
 package com.learn.trade.mapper;
 
-import com.learn.trade.entity.PayLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.learn.trade.entity.PayLog;
 
 /**
  * <p>

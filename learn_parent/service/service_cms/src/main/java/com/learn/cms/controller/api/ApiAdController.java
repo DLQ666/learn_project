@@ -20,7 +20,6 @@ import java.util.List;
  * @create: 2020-07-03 17:12
  */
 @Api(description = "广告推荐")
-@CrossOrigin
 @RestController
 @RequestMapping("/api/cms/ad")
 public class ApiAdController {

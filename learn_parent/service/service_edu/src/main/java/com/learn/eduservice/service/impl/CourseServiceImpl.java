@@ -205,7 +205,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return this.updateById(course);
     }
 
-    @Cacheable(value = "index",key = "'webSelectList'")
     @Override
     public List<Course> webSelectList(WebCourseQueryVo webCourseQueryVo) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
@@ -284,6 +283,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         //在xml文件手写sql语句 ----->此方法只执行一条sql语句--->查询性能较强---->强烈推荐手写sql
         return baseMapper.selectCourseDtoById(courseId);
+    }
+
+    @Override
+    public void updateBuyCountById(String id) {
+        Course course = baseMapper.selectById(id);
+        long buyCount = course.getBuyCount()+1;
+        course.setBuyCount(buyCount);
+        baseMapper.updateById(course);
     }
 
 }

@@ -13,7 +13,6 @@ import com.learn.utils.result.ResultCodeEnum;
 import com.learn.utils.utils.FormUtils;
 import com.learn.utils.utils.JwtInfo;
 import com.learn.utils.utils.JwtUtils;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -130,5 +129,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         MemberDto memberDto = new MemberDto();
         BeanUtils.copyProperties(member,memberDto);
         return memberDto;
+    }
+
+    @Override
+    public Integer countRegisterNum(String day) {
+        return baseMapper.selectRegisterNumByDay(day);
     }
 }
