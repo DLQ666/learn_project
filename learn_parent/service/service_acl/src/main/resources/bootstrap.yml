@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev # 环境设置 dev:开发 test:测试 prod:生产
+  application:
+    name: service-acl
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848  #nacos服务地址
+        file-extension: yaml # 配置文件格式，如果是properties文件则不用配置此项
+        namespace: 3a427b65-f189-41f8-bdb8-57f2e73db030

@@ -1,13 +1,15 @@
 package com.learn.eduservice.entity;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.learn.service.base.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -57,6 +59,7 @@ public class Course extends BaseEntity {
     private Long viewCount;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     private Long version;
 
     @ApiModelProperty(value = "课程状态 Draft未发布  Normal已发布")

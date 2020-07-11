@@ -2,6 +2,7 @@ package com.learn.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.eduservice.entity.*;
 import com.learn.eduservice.entity.form.CourseInfoForm;
 import com.learn.eduservice.entity.query.CourseQuery;
@@ -12,9 +13,10 @@ import com.learn.eduservice.entity.vo.WebCourseVo;
 import com.learn.eduservice.feign.OssService;
 import com.learn.eduservice.mapper.*;
 import com.learn.eduservice.service.CourseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learn.service.base.dto.CourseDto;
+import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResponseResult;
+import com.learn.utils.result.ResultCodeEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -49,6 +51,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseCollectMapper courseCollectMapper;
     @Autowired
     private TeacherMapper teacherMapper;
+    @Autowired
+    private CourseMapper courseMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -88,12 +92,30 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return courseInfoForm;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateCourseInfoById(CourseInfoForm courseInfoForm) {
-        //更新Course
+
+        /*//保存课程基本信息
         Course course = new Course();
         BeanUtils.copyProperties(courseInfoForm, course);
-        baseMapper.updateById(course);
+        baseMapper.updateById(course);*/
+
+        String id = courseInfoForm.getId();
+        Course selectCourseById = courseMapper.selectById(id);
+        if (StringUtils.isEmpty(selectCourseById)){
+            throw new CustomException(ResultCodeEnum.COURSE_IS_NULL);
+        }
+        //更新Course
+        selectCourseById.setId(courseInfoForm.getId());
+        selectCourseById.setTeacherId(courseInfoForm.getTeacherId());
+        selectCourseById.setSubjectId(courseInfoForm.getSubjectId());
+        selectCourseById.setSubjectParentId(courseInfoForm.getSubjectParentId());
+        selectCourseById.setTitle(courseInfoForm.getTitle());
+        selectCourseById.setPrice(courseInfoForm.getPrice());
+        selectCourseById.setLessonNum(courseInfoForm.getLessonNum());
+        selectCourseById.setCover(courseInfoForm.getCover());
+        courseMapper.updateById(selectCourseById);
 
         //更新CourseDescription
         CourseDescription courseDescription = new CourseDescription();

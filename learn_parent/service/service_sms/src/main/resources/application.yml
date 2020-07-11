@@ -24,10 +24,10 @@
 #        min-idle: 0     #最小空闲连接，默认0
 #
 ##阿里云短信
-aliyun:
-  sms:
-    regionId: cn-hangzhou
-    keyId: LTAI4GCCsRQb8p3PgUdhj5hd
-    keySecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
-    templateCode: SMS_187240015
-    signName: JAVA社区项目
+#aliyun:
+#  sms:
+#    regionId: cn-hangzhou
+#    keyId: LTAI4GCCsRQb8p3PgUdhj5hd
+#    keySecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
+#    templateCode: SMS_187240015
+#    signName: JAVA社区项目

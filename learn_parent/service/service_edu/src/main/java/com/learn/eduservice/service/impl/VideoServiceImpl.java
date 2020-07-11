@@ -79,6 +79,9 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
     private List<String> getVideoSourceIdList(List<Map<String ,Object>> maps){
         ArrayList<String> videoSourceIdList = new ArrayList<>();
         for (Map<String, Object> map : maps) {
+            if (map == null){
+                return videoSourceIdList;
+            }
             String videoSourceId = (String) map.get("video_source_id");
             videoSourceIdList.add(videoSourceId);
         }

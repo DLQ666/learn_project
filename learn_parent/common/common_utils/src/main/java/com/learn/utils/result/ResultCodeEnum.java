@@ -15,6 +15,7 @@ public enum ResultCodeEnum {
     UNKNOWN_REASON(false, 20001, "未知错误"),
 
     COURSE_INFO_FORM_IS_NULL(false, 20011, "课程基本信息不能为空"),
+    COURSE_IS_NULL(false, 20012, "课程不存在，修改失败!"),
     BAD_SQL_GRAMMAR(false, 21001, "sql语法错误"),
     JSON_PARSE_ERROR(false, 21002, "json解析异常"),
     PARAM_ERROR(false, 21003, "参数不正确"),

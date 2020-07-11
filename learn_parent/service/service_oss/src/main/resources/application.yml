@@ -1,23 +1,23 @@
-# 服务端口
-server:
-  port: 8002
-# 服务名
-spring:
-  profiles:
-    active: dev # 环境设置 dev:开发 test:测试 prod:生产
-  application:
-    name: service-oss
+## 服务端口
+#server:
+#  port: 8002
+## 服务名
 #spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848 # nacos服务地址
-#阿里云OSS配置
-aliyun:
-  oss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    keyid: LTAI4GCCsRQb8p3PgUdhj5hd
-    keysecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
-    #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
-    bucketname: dlqedu-01
-
+#  profiles:
+#    active: dev # 环境设置 dev:开发 test:测试 prod:生产
+#  application:
+#    name: service-oss
+##spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848 # nacos服务地址
+##阿里云OSS配置
+#aliyun:
+#  oss:
+#    endpoint: oss-cn-beijing.aliyuncs.com
+#    keyid: LTAI4GCCsRQb8p3PgUdhj5hd
+#    keysecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
+#    #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
+#    bucketname: dlqedu-01
+#
