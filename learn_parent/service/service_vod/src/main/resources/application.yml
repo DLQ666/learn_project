@@ -17,7 +17,7 @@
 #
 #aliyun:
 #  vod:
-#    keyid: LTAI4GCCsRQb8p3PgUdhj5hd
-#    keysecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
+#    keyid: LTAI4GCCs
+#    keysecret: buz05j3bOExuqq
 #    templateGroupId: b794e219e6c7baa3681346313a6222ed #转码模板组id
 #    workflowId: 10fab770eb89a17f6ac92fd7daf0d52a #工作流id

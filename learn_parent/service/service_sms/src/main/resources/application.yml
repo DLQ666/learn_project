@@ -27,7 +27,7 @@
 #aliyun:
 #  sms:
 #    regionId: cn-hangzhou
-#    keyId: LTAI4GCCsRQb8p3PgUdhj5hd
-#    keySecret: buz05j3bOExuqqAOfY5U1Ku5HVGp1G
+#    keyId: LTAI4GCCs
+#    keySecret: buz05j3bOE
 #    templateCode: SMS_187240015
 #    signName: JAVA社区项目
