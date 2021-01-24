@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 网站统计日数据 服务实现类
@@ -49,5 +54,47 @@ public class DailyServiceImpl extends ServiceImpl<DailyMapper, Daily> implements
         daily.setDateCalculated(day);
 
         baseMapper.insert(daily);
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> showChart(String begin, String end) {
+        //学员登录数统计
+        Map<String, Object> registerNum = this.getChartDataByType(begin, end, "register_num");
+        //学员注册数统计
+        Map<String, Object> loginNum = this.getChartDataByType(begin, end, "login_num");
+        //课程播放数统计
+        Map<String, Object> videoViewNum = this.getChartDataByType(begin, end, "video_view_num");
+        //每日新增课程数统计
+        Map<String, Object> courseNum = this.getChartDataByType(begin, end, "course_num");
+        Map<String, Map<String, Object>> map = new HashMap<>();
+        map.put("registerNum",registerNum);
+        map.put("loginNum",loginNum);
+        map.put("videoViewNum",videoViewNum);
+        map.put("courseNum",courseNum);
+
+        return map;
+    }
+
+    private Map<String,Object> getChartDataByType(String begin,String end,String type){
+        HashMap<String, Object> map = new HashMap<>();
+        List<String> xList = new ArrayList<>(); //日期列表
+        List<Integer> yList = new ArrayList<>(); //数据列表
+        QueryWrapper<Daily> wrapper = new QueryWrapper<>();
+        wrapper.select("date_calculated",type);
+        wrapper.between("date_calculated", begin,end);
+
+        List<Map<String, Object>> mapsData = baseMapper.selectMaps(wrapper);
+
+        for (Map<String, Object> data : mapsData) {
+            String dateCalculated = (String) data.get("date_calculated");
+            xList.add(dateCalculated);
+
+            Integer count = (Integer) data.get(type);
+            yList.add(count);
+        }
+
+        map.put("xList", xList);
+        map.put("yList", yList);
+        return map;
     }
 }

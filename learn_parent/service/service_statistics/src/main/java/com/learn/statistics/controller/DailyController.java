@@ -6,10 +6,9 @@ import com.learn.utils.result.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -32,6 +31,12 @@ public class DailyController {
     public ResponseResult createStasticsByDay(@PathVariable String day){
         dailyService.createStatisticsByDay(day);
         return ResponseResult.ok().message("统计数据生成成功");
+    }
+
+    @GetMapping("/showChart/{begin}/{end}")
+    public ResponseResult showChart(@PathVariable String begin,@PathVariable String end){
+        Map<String, Map<String, Object>> map = dailyService.showChart(begin,end);
+        return ResponseResult.ok().data("chartData",map);
     }
 
 }
