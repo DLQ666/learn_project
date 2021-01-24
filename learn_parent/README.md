@@ -1,2 +1,0 @@
-# learn_project
-基于springCloud框架的微服务在线教育网站
