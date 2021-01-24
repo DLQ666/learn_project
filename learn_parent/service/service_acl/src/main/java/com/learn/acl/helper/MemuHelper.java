@@ -52,6 +52,7 @@ public class MemuHelper {
 
                     JSONObject twoMeta = new JSONObject();
                     twoMeta.put("title", two.getName());
+                    twoMeta.put("icon", two.getIcon());
                     twoMeun.put("meta", twoMeta);
 
                     children.add(twoMeun);
@@ -68,6 +69,7 @@ public class MemuHelper {
 
                         JSONObject threeMeta = new JSONObject();
                         threeMeta.put("title", three.getName());
+                        threeMeta.put("icon", three.getIcon());
                         threeMeun.put("meta", threeMeta);
 
                         children.add(threeMeun);
