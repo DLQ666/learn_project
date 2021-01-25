@@ -1,11 +1,15 @@
 spring:
   profiles:
-    active: dev # 环境设置
+    active: prod # 环境设置
   application:
     name: service-trade # 服务名
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848 #nacos中心地址
-        file-extension: yaml # 配置文件格式，如果是properties文件则不用配置此项
-        namespace: 3a427b65-f189-41f8-bdb8-57f2e73db030
+        server-addr: gitdlq.top:8848 #nacos中心地址
+        file-extension: yml # 配置文件格式，如果是properties文件则不用配置此项
+        namespace: 28c4338d-3a57-433a-a13a-a66d85986a5a
+        ext-config:
+          - dataId: weixin.yml
+            group: DEFAULT_GROUP
+            refresh: true

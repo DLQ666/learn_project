@@ -1,11 +1,11 @@
 spring:
   profiles:
-    active: prod # 环境设置
+    active: prod # 环境设置 dev:开发 test:测试 prod:生产
   application:
-    name: service-cms # 服务名
+    name: infrastructure-apigateway
   cloud:
     nacos:
       config:
         server-addr: gitdlq.top:8848  #nacos服务地址
         file-extension: yaml # 配置文件格式，如果是properties文件则不用配置此项
-        namespace: 3dd6f383-d42d-4687-adae-530062abd769
+        namespace: 43763b54-c2ab-4383-843e-f08f9c575219
