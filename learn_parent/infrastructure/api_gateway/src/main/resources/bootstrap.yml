@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod # 环境设置 dev:开发 test:测试 prod:生产
+    active: dev # 环境设置 dev:开发 test:测试 prod:生产
   application:
     name: infrastructure-apigateway
   cloud:
