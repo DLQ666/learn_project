@@ -6,11 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.learn.eduservice.entity.Subject;
 import com.learn.eduservice.entity.excel.ExcelSubjectData;
 import com.learn.eduservice.mapper.SubjectMapper;
-import com.learn.eduservice.service.SubjectService;
 import com.learn.service.base.exception.CustomException;
 import com.learn.utils.result.ResultCodeEnum;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**

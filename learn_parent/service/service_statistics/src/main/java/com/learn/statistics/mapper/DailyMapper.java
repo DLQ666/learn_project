@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author dlq
- * @since 2021-01-24
+ * @since 2020-07-08
  */
 public interface DailyMapper extends BaseMapper<Daily> {
 

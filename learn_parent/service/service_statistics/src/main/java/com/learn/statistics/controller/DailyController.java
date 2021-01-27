@@ -16,9 +16,9 @@ import java.util.Map;
  * </p>
  *
  * @author dlq
- * @since 2021-01-24
+ * @since 2020-07-08
  */
-@Api(description ="统计分析管理")
+@Api(description = "统计分析管理")
 @RestController
 @RequestMapping("/admin/statistics/daily")
 public class DailyController {
@@ -26,16 +26,16 @@ public class DailyController {
     @Autowired
     private DailyService dailyService;
 
-    @ApiOperation("生成统计记录")
     @PostMapping("/create/{day}")
-    public ResponseResult createStasticsByDay(@PathVariable String day){
+    public ResponseResult createdStatisticsByDay(@PathVariable("day") String day) {
         dailyService.createStatisticsByDay(day);
         return ResponseResult.ok().message("统计数据生成成功");
     }
 
+    @ApiOperation("展示统计记录")
     @GetMapping("/showChart/{begin}/{end}")
-    public ResponseResult showChart(@PathVariable String begin,@PathVariable String end){
-        Map<String, Map<String, Object>> map = dailyService.showChart(begin,end);
+    public ResponseResult showChart(@PathVariable("begin") String begin,@PathVariable("end") String end) {
+        Map<String, Map<String, Object>> map = dailyService.getChartData(begin,end);
         return ResponseResult.ok().data("chartData",map);
     }
 
